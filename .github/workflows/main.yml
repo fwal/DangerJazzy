@@ -4,16 +4,17 @@ on: [push]
 
 jobs:
   test:
-    name: Test on ${{ matrix.os }}
+    name: Test with swift ${{ matrix.swift }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
+        swift: [4.2.4, 5.0.1]
     steps:
     - uses: actions/checkout@v1
     - name: Set Swift version
       run: |
         eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-        swiftenv install 5.1 --set-global
+        swiftenv install ${{ matrix.swift }} --set-global
     - name: Swift test
       run: swift test
