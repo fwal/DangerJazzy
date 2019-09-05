@@ -15,6 +15,6 @@ jobs:
     - name: Set Swift version
       run: |
         eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-        swiftenv install ${{ matrix.swift }} --set-global
+        swiftenv install ${{ matrix.swift }} --set-global 2> /dev/null
     - name: Swift test
       run: swift test
