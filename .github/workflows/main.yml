@@ -4,8 +4,18 @@ on: [push]
 
 jobs:
   test:
-    runs-on: macOS-latest
+    name: Test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest]
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
+    - name: Setup linux toolchain
+      run: eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+      if: ${{ matrix.os }} == 'ubuntu-latest'
+    - name: Select swift version
+      run: swiftenv global 4.2
+      if: ${{ matrix.os }} == 'ubuntu-latest'
+    - name: Swift test
       run: swift test
