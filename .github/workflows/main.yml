@@ -12,10 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup linux toolchain
-      run: eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
-      if: matrix.os == 'ubuntu-latest'
-    - name: Select swift version
-      run: swiftenv global 4.2
+      run: |
+      eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+      swiftenv global 4.2
       if: matrix.os == 'ubuntu-latest'
     - name: Swift test
       run: swift test
