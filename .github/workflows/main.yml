@@ -1,0 +1,11 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run a one-line script
+      run: swift test
